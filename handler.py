@@ -18,7 +18,6 @@ Output:
 import base64
 import io
 import os
-import sys
 
 import numpy as np
 import requests
@@ -28,11 +27,9 @@ from diffusers.image_processor import VaeImageProcessor
 from huggingface_hub import snapshot_download
 from PIL import Image
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from model.cloth_masker import AutoMasker  # noqa: E402
-from model.pipeline import CatVTONPipeline  # noqa: E402
-from utils import init_weight_dtype, resize_and_crop, resize_and_padding  # noqa: E402
+from model.cloth_masker import AutoMasker
+from model.pipeline import CatVTONPipeline
+from utils import init_weight_dtype, resize_and_crop, resize_and_padding
 
 BASE_MODEL = os.environ.get("BASE_MODEL", "booksforcharlie/stable-diffusion-inpainting")
 RESUME_PATH = os.environ.get("RESUME_PATH", "zhengchong/CatVTON")

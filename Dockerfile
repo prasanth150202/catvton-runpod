@@ -21,12 +21,12 @@ RUN sed -e 's#^git+https://github.com/huggingface/diffusers.git#diffusers==0.31.
         -e '/^torch/d' -e '/^peft/d' -e '/^gradio/d' -e '/^setuptools/d' requirements.txt > req-runpod.txt \
     && pip install -r req-runpod.txt runpod requests
 
-COPY runpod/download_weights.py runpod/download_weights.py
-RUN python runpod/download_weights.py
+COPY builder/download_weights.py builder/download_weights.py
+RUN python builder/download_weights.py
 
 COPY . .
 
 # Everything is cached in the image; never hit the Hub at runtime.
 ENV HF_HUB_OFFLINE=1
 
-CMD ["python", "-u", "runpod/handler.py"]
+CMD ["python", "-u", "handler.py"]
