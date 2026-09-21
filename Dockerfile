@@ -13,7 +13,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # Python 3.9 matches the prebuilt detectron2/_C.cpython-39 extension shipped in the repo.
-RUN pip install torch==2.4.0 torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cu121
+# Upgrade pip first: 23.0.1 in the base image rejects non-normalized names on the PyTorch index.
+# PyPI stays the main index; the cu121 index only supplies torch/torchvision (+cu121 wins over PyPI's build).
+RUN pip install --upgrade pip \
+    && pip install torch==2.4.0 torchvision==0.19.0 --extra-index-url https://download.pytorch.org/whl/cu121
 
 # Pin diffusers instead of tracking git main (main no longer supports Python 3.9); peft is unused.
 COPY requirements.txt .
