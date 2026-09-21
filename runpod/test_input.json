@@ -1,0 +1,10 @@
+{
+  "input": {
+    "person_image": "https://raw.githubusercontent.com/Zheng-Chong/CatVTON/main/resource/demo/example/person/women/model_8.png",
+    "cloth_image": "https://raw.githubusercontent.com/Zheng-Chong/CatVTON/main/resource/demo/example/condition/upper/21514384_52353349_1000.jpg",
+    "cloth_type": "upper",
+    "num_inference_steps": 50,
+    "guidance_scale": 2.5,
+    "seed": 42
+  }
+}
