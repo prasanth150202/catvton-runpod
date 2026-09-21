@@ -19,10 +19,11 @@ RUN pip install --upgrade pip \
     && pip install torch==2.4.0 torchvision==0.19.0 --extra-index-url https://download.pytorch.org/whl/cu121
 
 # Pin diffusers instead of tracking git main (main no longer supports Python 3.9); peft is unused.
+# runpod 1.9.x crashes on Python 3.9 at startup ("no current event loop" after its fitness checks).
 COPY requirements.txt .
 RUN sed -e 's#^git+https://github.com/huggingface/diffusers.git#diffusers==0.31.0#' \
         -e '/^torch/d' -e '/^peft/d' -e '/^gradio/d' -e '/^setuptools/d' requirements.txt > req-runpod.txt \
-    && pip install -r req-runpod.txt runpod requests
+    && pip install -r req-runpod.txt "runpod==1.8.2" requests
 
 COPY builder/download_weights.py builder/download_weights.py
 RUN python builder/download_weights.py
